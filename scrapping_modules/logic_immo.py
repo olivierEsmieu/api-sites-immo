@@ -33,7 +33,7 @@ def search(parameters):
 
     for ad in data['items']:
 
-        annonce, created = Annonce.create_or_get(
+        annonce, created = Annonce.get_or_create(
             id='logic-immo-' + ad['identifiers']['main'],
             site="Logic Immo",
             created=datetime.fromtimestamp(ad['info']['firstOnlineDate']),
@@ -46,13 +46,13 @@ def search(parameters):
             bedrooms=ad['properties'].get('bedrooms'),
             city=ad['location']['city']['name'],
             link=ad['info']['link'],
-            picture=[picture.replace("[WIDTH]", "1440").replace("[HEIGHT]", "956").replace("[SCALE]", "3.5")
-                     for picture in ad.get('pictures')]
+            picture=""#[picture.replace("[WIDTH]", "1440").replace("[HEIGHT]", "956").replace("[SCALE]", "3.5") for picture in ad.get('pictures')]                
         )
 
         if created:
             annonce.save()
 
+        print(annonce.as_text())
 
 def search_city_code(cities):
     keys = list()

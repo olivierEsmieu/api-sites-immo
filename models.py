@@ -23,6 +23,10 @@ class Annonce(Model):
     picture = CharField(null=True)
     posted2trello = BooleanField(default=False)
 
+    def as_text(self):
+        print(self.title)
+        print("--------")
+
     class Meta:
         database = db
         order_by = ('-created',)

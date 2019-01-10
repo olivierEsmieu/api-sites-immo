@@ -12,7 +12,7 @@ from scrapping_modules import pap
 
 logging.basicConfig(level=logging.INFO)
 
-os.chdir(os.path.dirname(sys.argv[0]))
+#os.chdir(os.path.dirname(sys.argv[0]))
 models.create_tables()
 
 
@@ -38,5 +38,5 @@ if "pap" in parameters['ad-providers']:
     pap.search(parameters)
 
 # Envoi des annonces sur Trello
-posted = trello_module.post()
-logging.info("%s new ads posted to Trello" % posted)
+#posted = trello_module.post()
+#logging.info("%s new ads posted to Trello" % posted)

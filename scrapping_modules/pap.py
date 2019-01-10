@@ -42,12 +42,12 @@ def search(parameters):
         _request = requests.get("https://ws.pap.fr/immobilier/annonces/%s" % ad['id'], headers=header)
         _data = _request.json()
 
-        photos = list()
-        if _data.get("nb_photos") > 0:
-            for photo in _data["_embedded"]['photo']:
-                photos.append(photo['_links']['self']['href'])
+        # photos = list()
+        # if _data.get("nb_photos") > 0:
+        #     for photo in _data["_embedded"]['photo']:
+        #         photos.append(photo['_links']['self']['href'])
 
-        annonce, created = Annonce.create_or_get(
+        annonce, created = Annonce.get_or_create(
             id='pap-%s' % _data.get('id'),
             site="PAP",
             title="%s %s pièces" % (_data.get("typebien"), _data.get("nb_pieces")),
@@ -59,13 +59,14 @@ def search(parameters):
             rooms=_data.get('nb_pieces'),
             bedrooms=_data.get('nb_chambres_max'),
             city=_data["_embedded"]['place'][0]['title'],
-            link=_data["_links"]['desktop']['href'],
-            picture=photos
+            link=_data["_links"]['desktop']['href']
+            #picture=photos
         )
 
         if created:
             annonce.save()
 
+        print(annonce.as_text())
 
 def place_search(zipcode):
     """Retourne l'identifiant PAP pour un code postal donné"""

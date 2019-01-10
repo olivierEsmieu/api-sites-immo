@@ -65,6 +65,8 @@ def search(parameters):
             }
         )
 
+        print(annonce.as_text())
+
         if created:
             annonce.save()
 
