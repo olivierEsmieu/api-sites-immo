@@ -3,7 +3,7 @@
 Ce script récupère les annonces immobilières de plusieurs sites français : Se Loger, Le Bon Coin, de Particulier à Particulier et Logic Immo.
 
 _Il est basé sur le script [Un toit pour caramel](https://github.com/axeleroy/untoitpourcaramel) créé par [Axel Leroy](https://github.com/axeleroy) lui même inspiré par [VikParuchuri/apartment-finder](https://github.com/VikParuchuri/apartment-finder) 
-qui récupère les annonces immoblières de Leboncoin, Logic Immo, PaP et SeLoger pour les aggréger dans un tableau Trello._
+qui récupère les annonces immoblières pour les aggréger dans un tableau Trello._
 
 Ce projet reprend une grosse partie du code de [Un toit pour caramel](https://github.com/axeleroy/untoitpourcaramel) et l'adapte pour en faciliter l'usage de manière plus générale (#UnToitPourCaramel étant focalisé sur l'import des annonces dans un tableau Trello). 
 La documentation ci-dessous est en grande partie reprise depuis le très complet fichier original.

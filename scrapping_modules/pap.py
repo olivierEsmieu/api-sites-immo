@@ -38,6 +38,8 @@ def search(parameters):
     request = requests.get("https://ws.pap.fr/immobilier/annonces", params=unquote(params), headers=header)
     data = request.json()
 
+    if not 'annonce' in data['_embedded']: 
+        return
     for ad in data['_embedded']['annonce']:
         _request = requests.get("https://ws.pap.fr/immobilier/annonces/%s" % ad['id'], headers=header)
         _data = _request.json()
@@ -53,7 +55,7 @@ def search(parameters):
             title="%s %s pièces" % (_data.get("typebien"), _data.get("nb_pieces")),
             description=str(_data.get("texte")),
             telephone=_data.get("telephones")[0].replace('.', '') if len(_data.get("telephones")) > 0 else None,
-            created=datetime.fromtimestamp(_data.get("date_classement")),
+            created= "", #datetime.fromtimestamp(_data.get("date_classement")),
             price=_data.get('prix'),
             surface=_data.get('surface'),
             rooms=_data.get('nb_pieces'),

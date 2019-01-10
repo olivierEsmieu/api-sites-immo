@@ -21,11 +21,9 @@ class Annonce(Model):
     city = CharField()
     link = CharField()
     picture = CharField(null=True)
-    posted2trello = BooleanField(default=False)
 
     def as_text(self):
-        print(self.title)
-        print("--------")
+        return self.title + self.link
 
     class Meta:
         database = db
