@@ -5,8 +5,9 @@ Ce script récupère les annonces immobilières de plusieurs sites français : S
 _Il est basé sur le script [Un toit pour caramel](https://github.com/axeleroy/untoitpourcaramel) créé par [Axel Leroy](https://github.com/axeleroy) lui même inspiré par [VikParuchuri/apartment-finder](https://github.com/VikParuchuri/apartment-finder) 
 qui récupère les annonces immoblières pour les aggréger dans un tableau Trello._
 
-Ce projet reprend une grosse partie du code de [Un toit pour caramel](https://github.com/axeleroy/untoitpourcaramel) et l'adapte pour en faciliter l'usage de manière plus générale (#UnToitPourCaramel étant focalisé sur l'import des annonces dans un tableau Trello). 
-La documentation ci-dessous est en grande partie reprise depuis le très complet fichier original.
+
+Seule différence ici, on stocke les annonces en base
+
 
 ## Pré-requis
 * Python 3
@@ -115,9 +116,9 @@ Les paramètres sont donc :
 Les paramètres restants de chaque service peuvent être facilement obtenus à partir processus d'ingénierie inversée.
    
 
+
 ## Déploiement sur un Raspberry Pi
 _Testé sur un Raspberry Pi sous Raspbian Jessie._
-
 1. Installer `python3-pip` et `python3-lxml` (en plus de Python 3)
     ```
     sudo apt install python3-pip python3-lxml -y
@@ -126,11 +127,8 @@ _Testé sur un Raspberry Pi sous Raspbian Jessie._
     ```
     sudo pip3 install peewee requests requests_oauthlib pytz python-dateutil beautifulsoup4
     ```
-3. Clonner le projet
-    ```
-    git clone https://github.com/axeleroy/untoitpourcaramel.git
-    ```
-4. Créer une tâche `cron` pour lancer ce script régulièrement (dans mon cas toutes les 2h)
+
+3. Créer une tâche `cron` pour lancer ce script régulièrement (dans mon cas toutes les 2h)
     ```
     crontab -e
     ```
