@@ -5,7 +5,6 @@ from models import Annonce
 
 """Module qui récupère les annonces de LeBonCoin"""
 
-
 def search(parameters):
     # Préparation des paramètres de la requête
     payload = {

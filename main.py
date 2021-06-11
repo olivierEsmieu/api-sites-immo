@@ -8,10 +8,11 @@ from scrapping_modules import seloger
 from scrapping_modules import leboncoin
 from scrapping_modules import pap
 
-
 logging.basicConfig(level=logging.INFO)
 
 #os.chdir(os.path.dirname(sys.argv[0]))
+
+# création de la table dans la base de données
 models.create_tables()
 
 # Chargement des paramètres de recherche depuis le fichier JSON
