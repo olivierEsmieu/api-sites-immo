@@ -20,6 +20,10 @@ with open("parameters.json", encoding='utf-8') as parameters_data:
     parameters = json.load(parameters_data)
 
 # Recherche et insertion en base
+if "pap" in parameters['ad-providers']:
+    logging.info("Retrieving from pap")
+    pap.search(parameters)
+
 if "logic-immo" in parameters['ad-providers']:
     logging.info("Retrieving from logic_immo")
     logic_immo.search(parameters)
@@ -32,7 +36,5 @@ if "leboncoin" in parameters['ad-providers']:
     logging.info("Retrieving from leboncoin")
     leboncoin.search(parameters)
 
-if "pap" in parameters['ad-providers']:
-    logging.info("Retrieving from pap")
-    pap.search(parameters)
+
 

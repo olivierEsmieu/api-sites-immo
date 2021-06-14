@@ -29,7 +29,6 @@ class Annonce(Model):
         database = db
         order_by = ('-created',)
 
-
 def create_tables():
     with db:
         db.create_tables([Annonce])

@@ -12,9 +12,9 @@ header = {
     'Accept-Encoding': 'gzip'
 }
 
-
 def search(parameters):
-    # Préparation des paramètres de la requête
+    """Interroge le service et insère en base si l'id n'a pas été retrouvé"""
+
     payload = {
         'recherche[prix][min]': parameters['price'][0],  # Loyer min
         'recherche[prix][max]': parameters['price'][1],  # Loyer max
@@ -31,40 +31,42 @@ def search(parameters):
 
     params = urlencode(payload)
 
-    # Ajout des villes
+    # Ajout des villes (code spécifique à pap - mapping avec le code postal)
     for city in parameters['cities']:
         params += "&recherche[geo][ids][]=%s" % place_search(city[1])
 
+    # interroge le service
     request = requests.get("https://ws.pap.fr/immobilier/annonces", params=unquote(params), headers=header)
     data = request.json()
 
     if not 'annonce' in data['_embedded']: 
         return
+
     for ad in data['_embedded']['annonce']:
         _request = requests.get("https://ws.pap.fr/immobilier/annonces/%s" % ad['id'], headers=header)
         _data = _request.json()
 
-        # photos = list()
-        # if _data.get("nb_photos") > 0:
-        #     for photo in _data["_embedded"]['photo']:
-        #         photos.append(photo['_links']['self']['href'])
+        photos = list()
+        if _data.get("nb_photos") > 0:
+            for photo in _data["_embedded"]['photo']:
+                photos.append(photo['_links']['self']['href'])
 
+    # insertion en base si l'id de l'annonce n'a pas été trouvé
         annonce, created = Annonce.get_or_create(
             id='pap-%s' % _data.get('id'),
             site="PAP",
             title="%s %s pièces" % (_data.get("typebien"), _data.get("nb_pieces")),
             description=str(_data.get("texte")),
             telephone=_data.get("telephones")[0].replace('.', '') if len(_data.get("telephones")) > 0 else None,
-            created= "", #datetime.fromtimestamp(_data.get("date_classement")),
+            created= datetime.fromtimestamp(_data.get("date_classement")), #""
             price=_data.get('prix'),
             surface=_data.get('surface'),
             rooms=_data.get('nb_pieces'),
             bedrooms=_data.get('nb_chambres_max'),
             city=_data["_embedded"]['place'][0]['title'],
-            link=_data["_links"]['desktop']['href']
-            #picture=photos
+            link=_data["_links"]['desktop']['href'],
+            picture=','.join(photos)
         )
-
         if created:
             annonce.save()
 
