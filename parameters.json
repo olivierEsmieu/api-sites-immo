@@ -1,0 +1,48 @@
+{
+  "ad-providers": [
+    "pap"
+  ],
+  "cities": [
+    ["Antony", 92160,92002],
+    ["Rueil",92500,92063 ]
+  ],
+  "price": [
+    890000,
+    900000
+  ],
+  "surface": [
+    100,
+    200
+  ],
+  "rooms": [
+    1,
+    99
+  ],
+  "bedrooms": [
+    1,
+    99
+  ],
+  "pap": {
+    "recherche[produit]": "vente",
+    "recherche[typesbien][]": "appartement",
+    "order": "date-desc"
+    },
+  "leboncoin": {
+    "c": 9,
+    "f": "p",
+    "ret": [
+      1,
+      2
+    ],
+    "q": "terrasse"
+  },
+  "seloger": {
+    "idtt": 1,
+    "idtypebien": "1,2",
+    "getDtCreationMax": 1
+  },
+  "logic-immo": {
+    "domain": "sales",
+    "order": "date-desc"
+  }
+}
